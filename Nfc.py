@@ -1,17 +1,14 @@
 #! /usr/bin/env python3
-import logging
 import time
 
 from smartcard.CardRequest import CardRequest
 from smartcard.Exceptions import CardRequestTimeoutException
 from smartcard.util import toHexString, PACK
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 request = CardRequest(timeout=5)
 listeningCards = True
 
 def pollingCards(observer):
-    print("running observable")
     while listeningCards:
         try:
             connection = request.waitforcard().connection
@@ -23,3 +20,6 @@ def pollingCards(observer):
             observer.on_next(toHexString(data, PACK))
         while not not request.waitforcardevent():
             time.sleep(1 / 10)
+            
+def beep():
+    request.

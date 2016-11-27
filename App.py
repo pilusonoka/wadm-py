@@ -9,7 +9,7 @@ import Nfc
 import Serial
 from services import FideService, WalmooService
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
+logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 if len(sys.argv) < 3:
     raise Exception('params: fideLink walmooLink serialNumber')
@@ -17,12 +17,9 @@ fideLink = sys.argv[1]
 walmooLink = sys.argv[2]
 serialKey = sys.argv[3]
 
+token = FideService.getToken(fideLink, serialKey)
+
 Serial.open()
-
-token = FideService.getToken(fideLink)
-
-cardListener = Observable.create(Nfc.pollingCards).publish()
-
 
 def onCardRead(uid):
     logging.info(uid)
@@ -30,10 +27,12 @@ def onCardRead(uid):
 
 
 def sendSerial(data):
-    logging.info(data)
-    Serial.write(data)
+    if data:
+        logging.info(data)
+        Serial.write(data+';')
 
 
+cardListener = Observable.create(Nfc.pollingCards).publish()
 cardListener.subscribe(onCardRead)
 try:
     cardListener.connect()

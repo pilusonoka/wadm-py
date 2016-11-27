@@ -20,4 +20,4 @@ def processNewActivity(link, token, serialKey, uid, callback):
     Observable.create(callApi).subscribe(on_next=callback, on_error=onError)
 
 
-processNewActivity('http://localhost:8080', 'mTICl4-cakt5sPYmV7oaLJGbrg-XR8nY', 'dogedogedoge', 'xxx')
+# processNewActivity('http://localhost:8080', 'mTICl4-cakt5sPYmV7oaLJGbrg-XR8nY', 'dogedogedoge', 'xxx')

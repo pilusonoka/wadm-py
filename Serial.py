@@ -16,3 +16,6 @@ def open():
 
 def write(serailData):
     ser.write(bytes(serailData, encoding="ascii"))
+    
+# open()
+# write("1234567890qwertyuiopasdfghjklzxcvbnm")
